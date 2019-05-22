@@ -5,7 +5,6 @@ import VueRouter from 'vue-router'
 import {routes} from './routes/routes'
 import {http} from './axios/common';
 
-
 Vue.use(VueRouter)
 Vue.config.productionTip = false
 

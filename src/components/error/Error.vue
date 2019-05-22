@@ -16,6 +16,7 @@ export default {
 
 <style scoped>
 div{
+    margin-top: 50px;
     font-size: 30px;
 }
 </style>

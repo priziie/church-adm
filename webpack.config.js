@@ -33,6 +33,16 @@ var config = {
                 test: /\.css$/,
                 loader: "style-loader!css-loader"
             }
+            // {
+            //     loader: 'postcss-loader',
+            //     options: {
+            //       ident: 'postcss',
+            //       plugins: [
+            //         require('tailwindcss'),
+            //         require('autoprefixer'),
+            //       ],
+            //     },
+            // }
         ]
     },
     plugins: [
