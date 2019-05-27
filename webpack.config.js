@@ -56,7 +56,10 @@ var config = {
         modules: [            
             "node_modules",
             jsSourcePath
-        ]
+        ],
+        alias: {
+            'vuejs-datatable': 'vuejs-datatable/dist/vuejs-datatable.esm.js',
+        }
     },
     devServer: {
         port: 3003,

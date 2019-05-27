@@ -1,6 +1,9 @@
 
 var express = require('express');
 const port = process.env.PORT || 8080;
+
+const cors = require('cors');
+
 var app = express();
 
 require('dotenv').config();
@@ -8,6 +11,7 @@ require('dotenv').config();
 require('./lib/connection')
 
 app.use(express.json());
+app.use(cors());
 /**
  * MIS endpoints
  * back end
@@ -19,7 +23,7 @@ app.use('/api/informacion', require('./routes/informacion'))
 // // información sobre sacerdotes que han bautizado
 app.use('/api/sacerdotes', require('./routes/sacerdotes'))
 // // información de fes de bautismos
-// app.use('/api/bautismos', require('./routes/bautismos'))
+app.use('/api/bautismos', require('./routes/bautismos'))
 // // información de constancias de confirma
 // app.use('/api/confirmacion', require('./routes/confirmacion'))
 // // información de fe de matrimonio

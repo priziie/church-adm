@@ -3,9 +3,40 @@ import App from './App.vue'
 
 import VueRouter from 'vue-router'
 import {routes} from './routes/routes'
-import {http} from './axios/common';
+import {getCookie} from './axios/common';
+import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import DatatableFactory from 'vuejs-datatable';
 
 Vue.use(VueRouter)
+DatatableFactory.useDefaultType( false )
+	.registerTableType( 'datatable', tableType => {
+    console.log("estoy ejecutnado")
+		tableType.mergeSettings( {
+			table: {
+				class:   'table table-hover table-striped',
+				sorting: {
+					sortNone: '<i class="fa fa-sort"></i>',
+					sortAsc:  '<i class="fa fa-sort-up"></i>',
+					sortDesc: '<i class="fa fa-sort-down"></i>',
+				},
+			},
+			pager: {
+				classes: {
+					pager:    'pagination',
+          selected: 'active',
+          li: 'page-item'
+				},
+				icons: {
+					previous: '<i class="fa fa-angle-right"></i>',
+					next:     '<i class="fa fa-angle-left"></i>',
+				},
+			},
+		} );
+  } );
+
+Vue.use(DatatableFactory);
+  
 Vue.config.productionTip = false
 
 
@@ -18,34 +49,12 @@ router.beforeEach((to, from, next) =>{
 
   // console.log(reqAuth);
   // console.log(to);
-  if(reqAuth){
-    // console.log("entre");
-    http.get(store.state.urls.validate,{
-      headers: {
-        Authorization: store.state.token
-      }
-    })
-    .then(response=>{
-      next();
-    })
-    .catch(error=>{
-        console.log(error)
-        store.commit('setToken','');
-        if(error.response.status == '440'){
-            // this.$router.replace('/login');
-            next('/login')
-        }
-        else
-        next('/error')
-    })
-  }
-  else next();
-  
 
-  // let currentUser = store.state.token;
 
-  // if(reqAuth && !currentUser) next('/login')
-  // else next()
+  let currentUser = getCookie('token');
+
+  if(reqAuth && !currentUser) next('/login')
+  else next()
 })
 
 new Vue({

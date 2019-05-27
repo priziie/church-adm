@@ -1,15 +1,14 @@
 <template>
-  <div class="container">
+  <div class="">
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'app'
 }
 </script>
 
 
-<style src="./style.css"></style>
+<!--style src="./style.css"></style-->

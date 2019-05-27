@@ -1,8 +1,8 @@
 <template>
     <div class="form-style-2">
         
-    <div class="form-style-2-heading">Agregar nueva partida</div>
-    <form @submit.prevent="add">
+    <div class="form-style-2-heading">Modificar partida</div>
+    <form @submit.prevent="modify">
         <label for="libro"><span>No. Libro</span>
         <input type="text" name="libro" v-model="libro" /></label>
 
@@ -57,12 +57,15 @@
 import Datepicker from 'vuejs-datepicker';
 import {http} from '../../axios/common';
 import {getCookie} from '../../axios/common';
+import EventBus from '../../eventBus'
+
 export default {
     components: {
         Datepicker
     },
     data(){
         return{
+            id: '',
             libro: '',
             pagina: '',
             asiento: '',
@@ -84,7 +87,7 @@ export default {
         }
     },
     methods:{
-        getSacerdotes: function() {
+        getSacerdotes() {
             http.get("sacerdotes", {
                 headers: {
                     'Authorization': getCookie('token')
@@ -92,8 +95,42 @@ export default {
             })
             .then((response) => {
                 
-                console.log(response);
                 this.sacerdotes = response.data.result;
+            })
+            .catch((error) => {
+                let status = error.response.status;
+                console.log(status);
+                if(status == 440){
+                    this.$router.replace('/login');
+                    return;
+                }
+                //redireccionar a error
+                this.$router.replace('/error');
+            });
+        },
+        getInfo(id){
+            console.log("entre a get info")
+            http.get("bautismos/"+id, {
+                headers: {
+                    'Authorization': getCookie('token')
+                }
+            })
+            .then((response) => {
+                
+                const data = response.data.result;
+                
+                console.log(data);
+                //llenando valores
+                this.libro= data.libro,
+                this.pagina= data.pagina,
+                this.asiento= data.asiento,
+                this.nombre= data.nombre,
+                this.nacimiento= data.nacimiento,
+                this.bautismo= data.fecha,
+                this.madre= data.madre,
+                this.padre= data.padre,
+                this.padrinos= data.padrinos,
+                this.sacerdote= data.sacerdote
             })
             .catch((error) => {
                 let status = error.response.status;
@@ -157,7 +194,7 @@ export default {
             }
             return true;
         },
-        add: function(){
+        modify(){
             //validaciones
             if(!this.validaciones()){
                 return;
@@ -177,19 +214,19 @@ export default {
                 padrinos: this.padrinos.map(x=> x.value)
             };
 
-            // console.log(object);
-            http.post('bautismos', object,{
+            console.log(object);
+            http.put('bautismos/'+this.id, object,{
                 headers: {
                     'Authorization': getCookie('token')
                 }
             })
             .then((response) =>{
-                // console.log(response);
+                console.log(response);
                 if(response.status != 200){
                     this.msg = "Ocurrió un error al guardar"
                 }
                 else{
-                    this.exito = "Guardado exitosamente"
+                    this.exito = "Modificado exitosamente"
                     //limpiando vars
                     this.libro= '',
                     this.pagina= '',
@@ -217,8 +254,13 @@ export default {
             });
         }
     },
-    created(){
+    mounted(){
         this.getSacerdotes();
+        EventBus.$on('id', (id) => {
+            this.id = id;
+            console.log(id)
+            this.getInfo(id)
+        })
     }
 }
 </script>

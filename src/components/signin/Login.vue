@@ -1,7 +1,9 @@
 <template>
+<div class="container">
+
     <div class="login-page">
         <div class="form">
-          <h3>Login</h3>
+          <h3>Login 2</h3>
           <form class="login-form">
             <input type="text" v-model="username" placeholder="username"/>
             <input type="password" v-model="password" placeholder="password"/>
@@ -10,10 +12,12 @@
           </form>
         </div>
     </div>
+</div>
 </template>
 
 <script>
 import {http} from '../../axios/common';
+import {setCookie} from '../../axios/common';
 /* eslint-disable */
 export default {
     data(){
@@ -30,16 +34,17 @@ export default {
                 password: this.password
             };
 
+            console.log("entroo")
             http.post("usuarios/login", request)
             .then((response) => {
                 
-                console.log(response);
+                console.log(response.data.result);
+                setCookie("token", response.data.result)
                 // this.setToken(response.headers.authorization);
-                // this.$router.replace('/');
+                this.$router.replace('/');
             })
             .catch((error) => {
                 console.log(error);
-                let status = error.response.status;
                 //redireccionar a error
                 this.$router.replace('/error');
             });

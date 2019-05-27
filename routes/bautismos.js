@@ -26,8 +26,6 @@ router.get('/',
     const maxFecha = req.query.maxFecha;
     const eFecha = req.query.eFecha;
 
-    const filter = {};
-
     if(nombre){
         filter.nombre = new RegExp('/^'+nombre, "i");
     }
@@ -67,7 +65,7 @@ router.get('/',
             next(err);
             return;
         }
-        res.json({ success: true, results: lista })
+        res.json({ success: true, result: lista })
     })
 })
 
@@ -96,10 +94,10 @@ router.get('/:id', async (req, res, next) =>{
  */
 router.post('/', async (req, res, next) =>{
     try{
-        //req.body, se recuperan los datos del nuevo agente
+        //req.body, se recuperan los datos 
         const data = req.body;
 
-        const bautismo = new Agente(data);
+        const bautismo = new Bautismo(data);
 
         // el documentoQuery es una falsa promesa
         // funciona como una promesa
