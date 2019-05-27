@@ -17,7 +17,7 @@
 
 <script>
 import {http} from '../../axios/common';
-import {setCookie} from '../../axios/common';
+import {setCookie} from '../../utils/cookie';
 /* eslint-disable */
 export default {
     data(){
@@ -41,7 +41,7 @@ export default {
                 console.log(response.data.result);
                 setCookie("token", response.data.result)
                 // this.setToken(response.headers.authorization);
-                this.$router.replace('/');
+                this.$router.replace('/principal');
             })
             .catch((error) => {
                 console.log(error);

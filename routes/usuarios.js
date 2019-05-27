@@ -36,7 +36,6 @@ router.post('/login', async (req, res, next)=>{
             user_id: usuario._id,
             parroquia: usuario.parroquia
         }, process.env.JWT_SECRET,{
-            expiresIn: process.env.JWT_EXPIRATION
         }, (err, token) =>{
             if(err){
                 next(err);

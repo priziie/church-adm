@@ -3,7 +3,7 @@ import App from './App.vue'
 
 import VueRouter from 'vue-router'
 import {routes} from './routes/routes'
-import {getCookie} from './axios/common';
+import {getCookie} from './utils/cookie';
 import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DatatableFactory from 'vuejs-datatable';

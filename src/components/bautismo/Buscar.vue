@@ -28,7 +28,7 @@
 
 <script>
 import {http} from '../../axios/common';
-import {getCookie} from '../../axios/common';
+import {getCookie} from '../../utils/cookie';
 import Accion from './Accion.vue'
 
 export default {
@@ -82,7 +82,7 @@ export default {
                     return;
                 }
                 //redireccionar a error
-                this.$router.replace('/error');
+                this.$router.replace('/errorForm');
             });
         }
     },

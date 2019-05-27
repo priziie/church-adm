@@ -5,7 +5,10 @@ const mongoose = require('mongoose');
 const parroSchema = mongoose.Schema({
     nombre: String,
     direccion: String,
-    parroco: {type: String, index: true}
+    parroco: {type: String, index: true},
+    telefono: String,
+    departamento: String,
+    ciudad: String
 })
 // agenteSchema.createIndex()
 

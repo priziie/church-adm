@@ -44,7 +44,7 @@
         
 
         <label style="clear:both" ><span> </span>
-        <input type="submit" value="Agregar" /></label>
+        <input type="submit" value="Modificar" /></label>
 
         <span class="msg">{{msg}}</span>
         
@@ -56,8 +56,7 @@
 <script>
 import Datepicker from 'vuejs-datepicker';
 import {http} from '../../axios/common';
-import {getCookie} from '../../axios/common';
-import EventBus from '../../eventBus'
+import {getCookie} from '../../utils/cookie';
 
 export default {
     components: {
@@ -105,32 +104,35 @@ export default {
                     return;
                 }
                 //redireccionar a error
-                this.$router.replace('/error');
+                this.$router.replace('/errorForm');
             });
         },
-        getInfo(id){
-            console.log("entre a get info")
-            http.get("bautismos/"+id, {
+        getInfo(){
+            
+            http.get("bautismos/"+this.id, {
                 headers: {
                     'Authorization': getCookie('token')
                 }
             })
             .then((response) => {
                 
-                const data = response.data.result;
+                const datos = response.data.result;
                 
-                console.log(data);
+                console.log(datos.libro);
                 //llenando valores
-                this.libro= data.libro,
-                this.pagina= data.pagina,
-                this.asiento= data.asiento,
-                this.nombre= data.nombre,
-                this.nacimiento= data.nacimiento,
-                this.bautismo= data.fecha,
-                this.madre= data.madre,
-                this.padre= data.padre,
-                this.padrinos= data.padrinos,
-                this.sacerdote= data.sacerdote
+                this.libro= datos.libro;
+                this.pagina= datos.pagina;
+                this.asiento= datos.asiento;
+                this.nombre= datos.nombre;
+                this.nacimiento= datos.nacimiento;
+                this.bautismo= datos.fecha;
+                this.madre= datos.madre;
+                this.padre= datos.padre;
+                this.padrinos = [];
+                datos.padrinos.forEach((x)=> this.padrinos.push({value: x}));
+                this.sacerdote= datos.sacerdote;
+                
+            console.log(this.pagina, this.nombre)
             })
             .catch((error) => {
                 let status = error.response.status;
@@ -140,7 +142,7 @@ export default {
                     return;
                 }
                 //redireccionar a error
-                this.$router.replace('/error');
+                this.$router.replace('/errorForm');
             });
         },
         validaciones: function(){
@@ -226,20 +228,7 @@ export default {
                     this.msg = "Ocurrió un error al guardar"
                 }
                 else{
-                    this.exito = "Modificado exitosamente"
-                    //limpiando vars
-                    this.libro= '',
-                    this.pagina= '',
-                    this.asiento= '',
-                    this.nombre= '',
-                    this.nacimiento= '',
-                    this.bautismo= '',
-                    this.madre= '',
-                    this.padre= '',
-                    this.padrinos= [{
-                        value: ''
-                    }],
-                    this.sacerdote= '-'
+                    this.$router.replace('/bautismo/buscar');
                 }
             })
             .catch((error) => {
@@ -250,17 +239,18 @@ export default {
                     return;
                 }
                 //redireccionar a error
-                this.$router.replace('/error');
+                this.$router.replace('/errorForm');
             });
         }
     },
-    mounted(){
+    created(){
         this.getSacerdotes();
-        EventBus.$on('id', (id) => {
-            this.id = id;
-            console.log(id)
-            this.getInfo(id)
-        })
+        if(!getCookie('id_bautismo')){
+            this.$router.replace('/bautismo/buscar');
+            return;
+        }
+        this.id = getCookie('id_bautismo');
+        this.getInfo();
     }
 }
 </script>

@@ -56,7 +56,7 @@
 <script>
 import Datepicker from 'vuejs-datepicker';
 import {http} from '../../axios/common';
-import {getCookie} from '../../axios/common';
+import {getCookie} from '../../utils/cookie';
 export default {
     components: {
         Datepicker
@@ -103,7 +103,7 @@ export default {
                     return;
                 }
                 //redireccionar a error
-                this.$router.replace('/error');
+                this.$router.replace('/errorForm');
             });
         },
         validaciones: function(){
@@ -213,7 +213,7 @@ export default {
                     return;
                 }
                 //redireccionar a error
-                this.$router.replace('/error');
+                this.$router.replace('/errorForm');
             });
         }
     },
