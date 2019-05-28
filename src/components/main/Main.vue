@@ -92,6 +92,20 @@ export default {
                         title: 'Información',
                         icon: 'fa fa-church',
                         href: '/informacion'
+                    },
+                    {
+                        title: 'Usuarios',
+                        icon: 'fa fa-user',
+                        child: [
+                            {
+                                href: '/usuarios/password',
+                                title: 'Cambiar contraseña',
+                            },
+                            {
+                                href: '/usuarios/agregar',
+                                title: 'Agregar',
+                            }
+                        ]
                     }
             ],
         selectedTheme: 'white-theme',

@@ -16,6 +16,9 @@ import Busmat from '../components/matrimonio/Buscar.vue';
 import Modmat from '../components/matrimonio/Modificar.vue';
 import Impmat from '../components/matrimonio/Imprimir.vue';
 
+import Addusr from '../components/usuarios/Agregar.vue';
+import Password from '../components/usuarios/Password.vue';
+
 import Informacion from '../components/informacion/Informacion.vue';
 import Main from '../components/main/Main.vue'
 import Principal from '../components/main/Principal.vue'
@@ -104,6 +107,16 @@ export const routes =[
                 path:'/informacion', 
                 name: 'info',
                 component: Informacion
+            },
+            {
+                path:'/usuarios/agregar', 
+                name: 'addusr',
+                component: Addusr
+            },
+            {
+                path:'/usuarios/password', 
+                name: 'chgpwd',
+                component: Password
             }
         ]
     },

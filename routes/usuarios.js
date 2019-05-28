@@ -54,17 +54,41 @@ router.post('/login', async (req, res, next)=>{
  * POST /registrar
  * Registra un nuevo usuario
  */
-router.post('/registrar', async (req, res, next)=>{
+router.post('/', async (req, res, next)=>{
     try{
         const usuarioData = req.body;
         console.log(usuarioData)
         //encriptando password
         usuarioData.password = await bcrypt.hash(usuarioData.password, saltRounds);
+        usuarioData.parroquia = req.parroquia;
 
         const usuario = new Usuario(usuarioData);
         await usuario.save();
         
         res.json({  success: true  });
+    }
+    catch(err){
+        next(err);
+        return;
+    }
+});
+
+router.post('/password', async (req, res, next)=>{
+    try{
+        //encriptando password
+        const pass = await bcrypt.hash(req.body.password, saltRounds);
+
+        const usuario = await Usuario.findOneAndUpdate(
+            { _id: req.user_id }, 
+             {
+                 username: req.body.username,
+                 password: pass
+             },
+             {
+                 new: true
+             }).exec();
+        
+        res.json({  success: true, result: usuario  });
     }
     catch(err){
         next(err);
