@@ -1,7 +1,7 @@
 <template>
     <div class="form-style-2">
         
-    <div class="form-style-2-heading">Agregar nueva partida</div>
+    <div class="form-style-2-heading">Agregar nueva partida de bautismo</div>
     <form @submit.prevent="add">
         <label for="libro"><span>No. Libro</span>
         <input type="text" name="libro" v-model="libro" /></label>
@@ -13,12 +13,7 @@
         <input type="text" name="asiento" v-model="asiento" /></label>
 
         <label for="sacerdote"><span>Sacerdote</span>
-        <select name="sacerdote" v-model="sacerdote" >
-            <option value="-">Seleccione un sacerdote</option>
-            <option v-for="s in sacerdotes" :key="s._id" :value="s.nombre">
-                {{ s.nombre }}
-            </option>
-        </select></label>
+        <input type="text" name="sacerdote" v-model="sacerdote" /></label>
 
         <label for="nombre"><span>Nombre</span>
         <input type="text" name="nombre" v-model="nombre" /></label>
@@ -74,8 +69,7 @@ export default {
             padrinos: [{
                 value: ''
             }],
-            sacerdote: '-',
-            sacerdotes: [],
+            sacerdote: '',
             msg: '',
             disabledDates: {
                 from: new Date()
@@ -84,28 +78,7 @@ export default {
         }
     },
     methods:{
-        getSacerdotes: function() {
-            http.get("sacerdotes", {
-                headers: {
-                    'Authorization': getCookie('token')
-                }
-            })
-            .then((response) => {
-                
-                console.log(response);
-                this.sacerdotes = response.data.result;
-            })
-            .catch((error) => {
-                let status = error.response.status;
-                console.log(status);
-                if(status == 440){
-                    this.$router.replace('/login');
-                    return;
-                }
-                //redireccionar a error
-                this.$router.replace('/errorForm');
-            });
-        },
+        
         validaciones: function(){
             if(!this.asiento || isNaN(this.asiento)){
                 this.msg ="Favor escribir el asiento"
@@ -125,8 +98,8 @@ export default {
                 return;
             }
             
-            if(!this.sacerdote || this.sacerdote == ''){
-                this.msg ="Seleccione un sacerdote"
+            if(!this.sacerdote){
+                this.msg ="Debe escribir el nombre de un sacerdote"
                 return;
             }
             
@@ -174,7 +147,7 @@ export default {
                 nacimiento: this.nacimiento,
                 madre: this.madre,
                 padre: this.padre,
-                padrinos: this.padrinos.map(x=> x.value)
+                padrinos: this.padrinos.filter(x=> x.value != '').map(x=> x.value)
             };
 
             // console.log(object);
@@ -202,7 +175,7 @@ export default {
                     this.padrinos= [{
                         value: ''
                     }],
-                    this.sacerdote= '-'
+                    this.sacerdote= ''
                 }
             })
             .catch((error) => {
@@ -216,9 +189,6 @@ export default {
                 this.$router.replace('/errorForm');
             });
         }
-    },
-    created(){
-        this.getSacerdotes();
     }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div class="form-style-2">
         
-    <div class="form-style-2-heading">Modificar partida</div>
+    <div class="form-style-2-heading">Modificar partida de confirmación</div>
     <form @submit.prevent="modify">
         <label for="libro"><span>No. Libro</span>
         <input type="text" name="libro" v-model="libro" /></label>
@@ -18,8 +18,8 @@
         <label for="nombre"><span>Nombre</span>
         <input type="text" name="nombre" v-model="nombre" /></label>
 
-        <label for="bautismo"><span>Fecha de bautismo</span>
-        <datepicker name="bautismo" v-model="bautismo" :disabledDates="disabledDates"></datepicker></label>
+        <label for="fecha"><span>Fecha de confirmación</span>
+        <datepicker name="fecha" v-model="fecha" :disabledDates="disabledDates"></datepicker></label>
 
         <label for="nacimiento"><span>Fecha de nacimiento</span>
         <datepicker name="nacimiento" v-model="nacimiento" :disabledDates="disabledDates"></datepicker></label>
@@ -30,6 +30,8 @@
         <label for="madre"><span>Madre</span>
         <input type="text" name="madre" v-model="madre" /></label>
 
+        <label for="bautismo"><span>Bautizado/a en</span>
+        <input type="text" name="bautismo" v-model="bautismo" /></label>
         
         <label v-for="(p,i) in padrinos" :key="i">
             <span>Padrino {{i+1}}</span>
@@ -66,6 +68,7 @@ export default {
             nombre: '',
             nacimiento: '',
             bautismo: '',
+            fecha: '',
             madre: '',
             padre: '',
             padrinos: [{
@@ -80,10 +83,9 @@ export default {
         }
     },
     methods:{
-        
         getInfo(){
             
-            http.get("bautismos/"+this.id, {
+            http.get("confirmacion/"+this.id, {
                 headers: {
                     'Authorization': getCookie('token')
                 }
@@ -99,7 +101,8 @@ export default {
                 this.asiento= datos.asiento;
                 this.nombre= datos.nombre;
                 this.nacimiento= datos.nacimiento;
-                this.bautismo= datos.fecha;
+                this.bautismo= datos.bautismo;
+                this.fecha = datos.fecha;
                 this.madre= datos.madre;
                 this.padre= datos.padre;
                 this.padrinos = [];
@@ -133,8 +136,8 @@ export default {
                 return;
             }
             
-            if(!this.bautismo){
-                this.msg ="Debe llenar la fecha de bautismo"
+            if(!this.fecha){
+                this.msg ="Debe llenar la fecha de confirmación"
                 return;
             }
             
@@ -154,8 +157,8 @@ export default {
             }
 
             //validar fechas que no sea la del bautismo antes que la de nacimiento
-            if(this.bautismo < this.nacimiento){
-                this.msg ="La fecha de bautismo no puede ser menor a la de nacimiento";
+            if(this.fecha < this.nacimiento){
+                this.msg ="La fecha de confirmación no puede ser menor a la de nacimiento";
                 return;
             }
             
@@ -181,7 +184,8 @@ export default {
                 asiento: this.asiento,
                 libro: this.libro,
                 pagina: this.pagina,
-                fecha: this.bautismo,
+                bautismo: this.bautismo,
+                fecha: this.fecha,
                 sacerdote: this.sacerdote,
                 nombre: this.nombre,
                 nacimiento: this.nacimiento,
@@ -191,7 +195,7 @@ export default {
             };
 
             console.log(object);
-            http.put('bautismos/'+this.id, object,{
+            http.put('confirmacion/'+this.id, object,{
                 headers: {
                     'Authorization': getCookie('token')
                 }
@@ -202,7 +206,7 @@ export default {
                     this.msg = "Ocurrió un error al guardar"
                 }
                 else{
-                    this.$router.replace('/bautismo/buscar');
+                    this.$router.replace('/confirmacion/buscar');
                 }
             })
             .catch((error) => {
@@ -218,11 +222,11 @@ export default {
         }
     },
     created(){
-        if(!getCookie('id_bautismo')){
-            this.$router.replace('/bautismo/buscar');
+        if(!getCookie('id_confirmacion')){
+            this.$router.replace('/confirmacion/buscar');
             return;
         }
-        this.id = getCookie('id_bautismo');
+        this.id = getCookie('id_confirmacion');
         this.getInfo();
     }
 }

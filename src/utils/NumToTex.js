@@ -120,7 +120,7 @@ const Unidades = num => {
     let divisor = 1000;
     let cientos = Math.floor(num / divisor)
     let resto = num - (cientos * divisor)
-    let strMiles = Seccion(num, divisor, 'UN MIL', 'MIL');
+    let strMiles = Seccion(num, divisor, 'MIL', 'MIL');
     let strCentenas = Centenas(resto);
     return strMiles == '' || cientos === 0 ? strCentenas : strMiles + ' ' + strCentenas ;
   };

@@ -166,6 +166,11 @@ pre {
     margin-top: 60px;
     text-align: center;
 }
+.certificado img{
+    position: absolute;
+    width: 135px;
+    right: 23%;
+}
 @media print {
   @page { size: auto;  margin: 0mm; }
   body * {
@@ -187,10 +192,10 @@ pre {
     margin-bottom: 160px;
   }
   .certificado .cabecera h1{
-    font-size: 30px;
+    font-size: 28px;
   }
   .certificado .cabecera h2{
-    font-size: 26px;
+    font-size: 22px;
   }
   .certificado .parrafos p{
     font-size: 32px;
@@ -198,6 +203,12 @@ pre {
   }
   .firma{
     font-size: 32px;
-    margin-top: 250px;
+    margin-top: 230px;
   }
+  .certificado img{
+      position: absolute;
+      width: 200px;
+      right: -20px;
+  }
+
 }

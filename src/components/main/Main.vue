@@ -67,6 +67,24 @@ export default {
                             {
                                 href: '/confirmacion/buscar',
                                 title: 'Buscar',
+                            },
+                            {
+                                href: '/confirmacion/agregar',
+                                title: 'Agregar',
+                            }
+                        ]
+                    },
+                    {
+                        title: 'Matrimonio',
+                        icon: 'fa fa-heart',
+                        child: [
+                            {
+                                href: '/matrimonio/buscar',
+                                title: 'Buscar',
+                            },
+                            {
+                                href: '/matrimonio/agregar',
+                                title: 'Agregar',
                             }
                         ]
                     }

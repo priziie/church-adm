@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="form-style-2-heading">Búsqueda de fe de bautismo</div>
+        <div class="form-style-2-heading">Búsqueda de confirmaciones</div>
         
         <div class="row">
             <div class="col-xs-12 form-inline">
@@ -42,7 +42,7 @@ export default {
                 { label: 'No. Asiento', field: 'asiento' },
                 { label: 'Nombre', field: 'nombre' },
                 { label: 'Sacerdote', field: 'sacerdote' },
-                { label: 'Fecha Bautismo', representedAs: function (row) {
+                { label: 'Fecha Confirmación', representedAs: function (row) {
                         let date = new Date(row.fecha)
                         let options = { year: 'numeric', month: 'long', day: 'numeric' };
                         return date.toLocaleDateString('es-SV', options);
@@ -64,7 +64,7 @@ export default {
     },
     methods: {
         get: function() {
-            http.get("bautismos", {
+            http.get("confirmacion", {
                 headers: {
                     'Authorization': getCookie('token')
                 }

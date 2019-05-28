@@ -17,15 +17,16 @@ DatatableFactory.useDefaultType( false )
 				class:   'table table-hover table-striped',
 				sorting: {
 					sortNone: '<i class="fa fa-sort"></i>',
-					sortAsc:  '<i class="fa fa-sort-up"></i>',
-					sortDesc: '<i class="fa fa-sort-down"></i>',
+					sortAsc:  '<i class="fa fa-sort-down"></i>',
+					sortDesc: '<i class="fa fa-sort-up"></i>',
 				},
 			},
 			pager: {
 				classes: {
 					pager:    'pagination',
           selected: 'active',
-          li: 'page-item'
+          li: 'page-item',
+					a: 'page-link'
 				},
 				icons: {
 					previous: '<i class="fa fa-angle-right"></i>',

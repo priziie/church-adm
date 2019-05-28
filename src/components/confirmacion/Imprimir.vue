@@ -1,34 +1,36 @@
 <template>
     <div>
+    <!-- <router-link to="/confirmacion/modificar">Atrás</router-link> -->
     <div class="form-style-2">
         <label for="sacerdote"><span>A quién va dirigido</span>
         <textarea v-model="para" ></textarea>
         </label>
     </div>
     <input type="button" value="Imprimir" @click="imprimir"/>
-        <div v-if="informacion && bautismo" class="certificado">
+        <div v-if="informacion && confirmacion" class="certificado">
             <div class="cabecera">
                 <img v-bind:src="img" alt="">
-
                 <h1>{{ informacion.nombre }}</h1>
                 <hr>
                 <h2>{{ informacion.direccion }}</h2>
                 <h2>TEL. {{ informacion.telefono }}</h2>
             </div>
 
-            <h1 class="titulo">CERTIFICADO DE BAUTISMO</h1>
+            <h1 class="titulo">CERTIFICADO DE CONFIRMACION</h1>
             <div class="parrafos">
                 <p>
-                    El infrascrito cura párroco, por la presente CERTIFICA QUE: en el Libro de Bautismo N°
-                    {{ bautismo.libro }}, Pagina N° {{ bautismo.pagina }}, asiento N° {{ bautismo.asiento }},
+                    El infrascrito cura párroco, por la presente CERTIFICA QUE: en el Libro de 
+                    Confirmaciones N°
+                    {{ confirmacion.libro }}, Pagina N° {{ confirmacion.pagina }}, asiento N° {{ confirmacion.asiento }},
                     se encuentra la que textualmente dice:
                 </p>
                 <p>
-                    En la {{informacion.nombre}}, {{ informacion.ciudad }}, el día {{ getDay(bautismo.fecha) }}
-                    del mes de {{ getMonth(bautismo.fecha) }} del año {{ getYear(bautismo.fecha) }}, el 
-                    {{bautismo.sacerdote}}, bautizó solemnemente a: {{ bautismo.nombre }}, que nació el 
-                    {{getDay(bautismo.nacimiento)}} del mes de {{getMonth(bautismo.nacimiento)}} del año 
-                    {{getYear(bautismo.nacimiento)}}, hijo(a) de {{padres}}. Padrino(s): {{padrinos}}.
+                    En la {{informacion.nombre}}, {{ informacion.ciudad }}, el día {{ getDay(confirmacion.fecha) }}
+                    del mes de {{ getMonth(confirmacion.fecha) }} del año {{ getYear(confirmacion.fecha) }},
+                     administró el sacramento de la Confirmació el  
+                    {{confirmacion.sacerdote}} a: {{ confirmacion.nombre }}, que nació el día 
+                    {{getDay(confirmacion.nacimiento)}} del mes de {{getMonth(confirmacion.nacimiento)}} del año 
+                    {{getYear(confirmacion.nacimiento)}}, hijo(a) de {{padres}}. Sus padrinos: {{padrinos}}.
                 </p>
                 <p>
                     Se extiende la presente en la Oficina Parroquial 
@@ -58,7 +60,7 @@ export default {
     data(){
         return{
             informacion: null,
-            bautismo: null,
+            confirmacion: null,
             id: '',
             para: '',
             img: './img/cruz.png',
@@ -67,24 +69,24 @@ export default {
     },
     computed:{
         padres(){
-            if(this.bautismo){
-                if(this.bautismo.padre && this.bautismo.madre) 
-                    return this.bautismo.padre +" y de " +this.bautismo.madre;
-                return (this.bautismo.padre) ? this.bautismo.padre : this.bautismo.madre;
+            if(this.confirmacion){
+                if(this.confirmacion.padre && this.confirmacion.madre) 
+                    return this.confirmacion.padre +" y de " +this.confirmacion.madre;
+                return (this.confirmacion.padre) ? this.confirmacion.padre : this.confirmacion.madre;
             }
             return '';
         },
         padrinos(){
-            if(this.bautismo){
+            if(this.confirmacion){
                 let conc = "";
-                this.bautismo.padrinos.forEach((p,i) => {
+                this.confirmacion.padrinos.forEach((p,i) => {
                     conc += p;
-                    if(i==this.bautismo.padrinos.length-2){
+                    if(i==this.confirmacion.padrinos.length-2){
                         // si es el antepenultimo
                         //poner y en lugar de ,
                         conc += " y "
                     }
-                    else if(i < this.bautismo.padrinos.length-1)
+                    else if(i < this.confirmacion.padrinos.length-1)
                         conc += ", "
                 });
                 return conc;
@@ -94,11 +96,11 @@ export default {
     },
     created(){
         this.getInfoParroquia();
-        if(!getCookie('id_bautismo')){
-            this.$router.replace('/bautismo/buscar');
+        if(!getCookie('id_confirmacion')){
+            this.$router.replace('/confirmacion/buscar');
             return;
         }
-        this.id = getCookie('id_bautismo');
+        this.id = getCookie('id_confirmacion');
         this.getInfo()
     },
     methods: {
@@ -144,14 +146,14 @@ export default {
         },
         getInfo(){
             
-            http.get("bautismos/"+this.id, {
+            http.get("confirmacion/"+this.id, {
                 headers: {
                     'Authorization': getCookie('token')
                 }
             })
             .then((response) => {
                 
-                this.bautismo = response.data.result;
+                this.confirmacion = response.data.result;
                 
             })
             .catch((error) => {

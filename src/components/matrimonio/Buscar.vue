@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="form-style-2-heading">Búsqueda de fe de bautismo</div>
+        <div class="form-style-2-heading">Búsqueda de matrimonios</div>
         
         <div class="row">
             <div class="col-xs-12 form-inline">
@@ -36,26 +36,21 @@ export default {
         return{
             filter: '',
             columns: [
-                { label: 'Acción', component: Accion},
+                { label: 'Acción', component: Accion, filterable: false},
                 { label: 'No. Libro', field: 'libro', align: 'center' },
                 { label: 'No. Página', field: 'pagina' },
-                { label: 'No. Asiento', field: 'asiento' },
-                { label: 'Nombre', field: 'nombre' },
-                { label: 'Sacerdote', field: 'sacerdote' },
-                { label: 'Fecha Bautismo', representedAs: function (row) {
+                { label: 'Fecha Matrimonio', representedAs: function (row) {
                         let date = new Date(row.fecha)
                         let options = { year: 'numeric', month: 'long', day: 'numeric' };
                         return date.toLocaleDateString('es-SV', options);
                     } 
                 },
-                { label: 'Fecha de nacimiento', representedAs: function (row) {
-                        let date = new Date(row.nacimiento)
-                        let options = { year: 'numeric', month: 'long', day: 'numeric' };
-                        return date.toLocaleDateString('es-SV', options);
-                    } 
-                },
-                { label: 'Madre', field: 'madre', filterable: false },
-                { label: 'Padre', field: 'padre', filterable: false }
+                { label: 'Esposo', field: 'esposo.nombre' },
+                { label: 'Padre esposo', field: 'esposo.padre', filterable: false },
+                { label: 'Madre esposo', field: 'esposo.madre', filterable: false },
+                { label: 'Esposa', field: 'esposa.nombre' },
+                { label: 'Padre esposa', field: 'esposa.padre', filterable: false },
+                { label: 'Madre esposa', field: 'esposa.madre', filterable: false },
             ],
             rows: [],
             page: 1,
@@ -64,7 +59,7 @@ export default {
     },
     methods: {
         get: function() {
-            http.get("bautismos", {
+            http.get("matrimonio", {
                 headers: {
                     'Authorization': getCookie('token')
                 }

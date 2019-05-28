@@ -1,8 +1,8 @@
 <template>
     <div class="form-style-2">
         
-    <div class="form-style-2-heading">Modificar partida</div>
-    <form @submit.prevent="modify">
+    <div class="form-style-2-heading">Agregar nueva partida de confirmación</div>
+    <form @submit.prevent="add">
         <label for="libro"><span>No. Libro</span>
         <input type="text" name="libro" v-model="libro" /></label>
 
@@ -18,8 +18,8 @@
         <label for="nombre"><span>Nombre</span>
         <input type="text" name="nombre" v-model="nombre" /></label>
 
-        <label for="bautismo"><span>Fecha de bautismo</span>
-        <datepicker name="bautismo" v-model="bautismo" :disabledDates="disabledDates"></datepicker></label>
+        <label for="fecha"><span>Fecha de confirmación</span>
+        <datepicker name="fecha" v-model="fecha" :disabledDates="disabledDates"></datepicker></label>
 
         <label for="nacimiento"><span>Fecha de nacimiento</span>
         <datepicker name="nacimiento" v-model="nacimiento" :disabledDates="disabledDates"></datepicker></label>
@@ -30,6 +30,8 @@
         <label for="madre"><span>Madre</span>
         <input type="text" name="madre" v-model="madre" /></label>
 
+        <label for="bautismo"><span>Bautizado/a en</span>
+        <input type="text" name="bautismo" v-model="bautismo" /></label>
         
         <label v-for="(p,i) in padrinos" :key="i">
             <span>Padrino {{i+1}}</span>
@@ -39,7 +41,7 @@
         
 
         <label style="clear:both" ><span> </span>
-        <input type="submit" value="Modificar" /></label>
+        <input type="submit" value="Agregar" /></label>
 
         <span class="msg">{{msg}}</span>
         
@@ -52,25 +54,24 @@
 import Datepicker from 'vuejs-datepicker';
 import {http} from '../../axios/common';
 import {getCookie} from '../../utils/cookie';
-
 export default {
     components: {
         Datepicker
     },
     data(){
         return{
-            id: '',
             libro: '',
             pagina: '',
             asiento: '',
             nombre: '',
             nacimiento: '',
-            bautismo: '',
+            fecha: '',
             madre: '',
             padre: '',
             padrinos: [{
                 value: ''
             }],
+            bautismo: '',
             sacerdote: '',
             msg: '',
             disabledDates: {
@@ -81,44 +82,6 @@ export default {
     },
     methods:{
         
-        getInfo(){
-            
-            http.get("bautismos/"+this.id, {
-                headers: {
-                    'Authorization': getCookie('token')
-                }
-            })
-            .then((response) => {
-                
-                const datos = response.data.result;
-                
-                console.log(datos.libro);
-                //llenando valores
-                this.libro= datos.libro;
-                this.pagina= datos.pagina;
-                this.asiento= datos.asiento;
-                this.nombre= datos.nombre;
-                this.nacimiento= datos.nacimiento;
-                this.bautismo= datos.fecha;
-                this.madre= datos.madre;
-                this.padre= datos.padre;
-                this.padrinos = [];
-                datos.padrinos.forEach((x)=> this.padrinos.push({value: x}));
-                this.sacerdote= datos.sacerdote;
-                
-            console.log(this.pagina, this.nombre)
-            })
-            .catch((error) => {
-                let status = error.response.status;
-                console.log(status);
-                if(status == 440){
-                    this.$router.replace('/login');
-                    return;
-                }
-                //redireccionar a error
-                this.$router.replace('/errorForm');
-            });
-        },
         validaciones: function(){
             if(!this.asiento || isNaN(this.asiento)){
                 this.msg ="Favor escribir el asiento"
@@ -133,8 +96,8 @@ export default {
                 return;
             }
             
-            if(!this.bautismo){
-                this.msg ="Debe llenar la fecha de bautismo"
+            if(!this.fecha){
+                this.msg ="Debe llenar la fecha de confirmación"
                 return;
             }
             
@@ -154,8 +117,8 @@ export default {
             }
 
             //validar fechas que no sea la del bautismo antes que la de nacimiento
-            if(this.bautismo < this.nacimiento){
-                this.msg ="La fecha de bautismo no puede ser menor a la de nacimiento";
+            if(this.fecha < this.nacimiento){
+                this.msg ="La fecha de confirmación no puede ser menor a la de nacimiento";
                 return;
             }
             
@@ -170,7 +133,7 @@ export default {
             }
             return true;
         },
-        modify(){
+        add: function(){
             //validaciones
             if(!this.validaciones()){
                 return;
@@ -181,28 +144,43 @@ export default {
                 asiento: this.asiento,
                 libro: this.libro,
                 pagina: this.pagina,
-                fecha: this.bautismo,
+                fecha: this.fecha,
                 sacerdote: this.sacerdote,
                 nombre: this.nombre,
                 nacimiento: this.nacimiento,
                 madre: this.madre,
                 padre: this.padre,
+                bautismo: this.bautismo,
                 padrinos: this.padrinos.filter(x=> x.value != '').map(x=> x.value)
             };
 
-            console.log(object);
-            http.put('bautismos/'+this.id, object,{
+            // console.log(object);
+            http.post('confirmacion', object,{
                 headers: {
                     'Authorization': getCookie('token')
                 }
             })
             .then((response) =>{
-                console.log(response);
+                // console.log(response);
                 if(response.status != 200){
                     this.msg = "Ocurrió un error al guardar"
                 }
                 else{
-                    this.$router.replace('/bautismo/buscar');
+                    this.exito = "Guardado exitosamente"
+                    //limpiando vars
+                    this.libro= '',
+                    this.pagina= '',
+                    this.asiento= '',
+                    this.nombre= '',
+                    this.nacimiento= '',
+                    this.bautismo= '',
+                    this.fecha= '',
+                    this.madre= '',
+                    this.padre= '',
+                    this.padrinos= [{
+                        value: ''
+                    }],
+                    this.sacerdote= ''
                 }
             })
             .catch((error) => {
@@ -216,14 +194,6 @@ export default {
                 this.$router.replace('/errorForm');
             });
         }
-    },
-    created(){
-        if(!getCookie('id_bautismo')){
-            this.$router.replace('/bautismo/buscar');
-            return;
-        }
-        this.id = getCookie('id_bautismo');
-        this.getInfo();
     }
 }
 </script>

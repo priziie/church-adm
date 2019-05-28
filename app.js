@@ -25,9 +25,9 @@ app.use('/api/sacerdotes', require('./routes/sacerdotes'))
 // // información de fes de bautismos
 app.use('/api/bautismos', require('./routes/bautismos'))
 // // información de constancias de confirma
-// app.use('/api/confirmacion', require('./routes/confirmacion'))
+app.use('/api/confirmacion', require('./routes/confirmacion'))
 // // información de fe de matrimonio
-// app.use('/api/matrimonio', require('./routes/matrimonio'))
+app.use('/api/matrimonio', require('./routes/matrimonio'))
 
 /**
  * VISTA
