@@ -31,4 +31,35 @@ router.get('/', async (req, res, next) =>{
     
 });
 
+/**
+ * PUT /informacion
+ * Actualiza un informacion
+ */
+
+router.put('/', async (req, res, next) =>{
+    try {
+        const id = req.parroquia;
+        const data = req.body;
+
+        //el exec no es necesario
+        //esa opcion de new, es para que devuelva el objeto 
+        //actualizado (no la versión anterior del objeto)
+        const informacionAct = await Informacion.findOneAndUpdate(
+            { _id: id }, 
+            data,
+            {
+                new: true
+            }).exec();
+
+        res.json({
+            success: true,
+            result: informacionAct
+        })
+
+    } catch (err) {
+        next(err);
+        return;
+    }
+})
+
 module.exports = router;

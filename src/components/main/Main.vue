@@ -87,6 +87,11 @@ export default {
                                 title: 'Agregar',
                             }
                         ]
+                    },
+                    {
+                        title: 'Información',
+                        icon: 'fa fa-church',
+                        href: '/informacion'
                     }
             ],
         selectedTheme: 'white-theme',

@@ -15,6 +15,8 @@ import Addmat from '../components/matrimonio/Agregar.vue';
 import Busmat from '../components/matrimonio/Buscar.vue';
 import Modmat from '../components/matrimonio/Modificar.vue';
 import Impmat from '../components/matrimonio/Imprimir.vue';
+
+import Informacion from '../components/informacion/Informacion.vue';
 import Main from '../components/main/Main.vue'
 import Principal from '../components/main/Principal.vue'
 
@@ -97,6 +99,11 @@ export const routes =[
                 path:'/matrimonio/imprimir', 
                 name: 'impmat',
                 component: Impmat
+            },
+            {
+                path:'/informacion', 
+                name: 'info',
+                component: Informacion
             }
         ]
     },
