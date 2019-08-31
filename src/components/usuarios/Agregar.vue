@@ -43,8 +43,8 @@ export default {
         }
     },
     methods:{
-        validations(){
-            if(!this.object.username || !this.object.nombre || !this.password){
+        validaciones(){
+            if(!this.object.username || !this.object.nombre || !this.object.password){
                 this.msg ="Favor llenar todos los campos"
                 return;
             }

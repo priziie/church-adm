@@ -50,6 +50,11 @@ router.post('/login', async (req, res, next)=>{
     }
 })
 
+
+const jwtAuthMiddleware = require('../lib/jwtAuthMiddleware');
+
+router.use(jwtAuthMiddleware())
+
 /**
  * POST /registrar
  * Registra un nuevo usuario
@@ -78,10 +83,10 @@ router.post('/password', async (req, res, next)=>{
         //encriptando password
         const pass = await bcrypt.hash(req.body.password, saltRounds);
 
+        console.log(req.user_id)
         const usuario = await Usuario.findOneAndUpdate(
             { _id: req.user_id }, 
              {
-                 username: req.body.username,
                  password: pass
              },
              {

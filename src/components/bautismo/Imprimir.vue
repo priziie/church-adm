@@ -61,7 +61,7 @@ export default {
             bautismo: null,
             id: '',
             para: '',
-            img: './img/cruz.png',
+            img: './img/membrete.png',
             curdate: new Date()
         }
     },

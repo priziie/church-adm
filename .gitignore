@@ -1,2 +1,4 @@
 node_modules
 .env
+lib/install_db.js
+*.log

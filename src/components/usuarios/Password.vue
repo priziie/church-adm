@@ -3,14 +3,12 @@
         
     <div class="form-style-2-heading">Cambiar contraseña</div>
     <form @submit.prevent="modify">
-        <label for="usuario"><span>Contraseña anterior</span>
-        <input type="text" name="usuario" v-model="object.usuario" /></label>
 
-        <label for="nombre"><span>Nueva contraseña</span>
-        <input type="text" name="nombre" v-model="object.nombre" /></label>
+        <label for="password"><span>Nueva contraseña</span>
+        <input type="password" name="password" v-model="password" /></label>
 
-        <label for="password"><span>Confirmar contraseña</span>
-        <input type="password" name="password" v-model="object.password" /></label>
+        <label for="repeatpwd"><span>Confirmar contraseña</span>
+        <input type="password" name="repeatpwd" v-model="repeatpwd" /></label>
 
 
         <label style="clear:both" ><span> </span>
@@ -31,29 +29,27 @@ export default {
         return{
             msg: '',
             exito: '',
-            username: '',
             password: '',
-            repeatpass: ''
+            repeatpwd: ''
         }
     },
     methods:{
-        validations(){
-            if(!this.object.username || !this.object.password || !this.repeatpass){
+        validaciones(){
+            if(!this.password || !this.repeatpwd){
                 this.msg ="Favor llenar todos los campos"
                 return;
             }
-            if(this.object.password != this.object.repeatpass){
+            if(this.password != this.repeatpwd){
                 this.msg = "Las contraseñas no coinciden"
                 return;
             }
             return true;
         },
         limpiar(){
-            this.username = '';
-            this.repeatpass = '';
+            this.repeatpwd = '';
             this.password = '';
         },
-        add(){
+        modify(){
 
             if(!this.validaciones()){
                 return;
@@ -61,7 +57,6 @@ export default {
 
             this.msg = "";
             http.post('usuarios/password', {
-                username: this.username,
                 password: this.password
             },{
                 headers: {
@@ -69,7 +64,7 @@ export default {
                 }
             })
             .then((response) =>{
-                // console.log(response);
+                console.log(response);
                 if(response.status != 200){
                     this.msg = "Ocurrió un error al guardar"
                 }

@@ -3,7 +3,7 @@
 
     <div class="login-page">
         <div class="form">
-          <h3>Login 2</h3>
+          <h3>Iniciar sesión</h3>
           <form class="login-form">
             <input type="text" v-model="username" placeholder="username"/>
             <input type="password" v-model="password" placeholder="password"/>
@@ -37,7 +37,12 @@ export default {
             console.log("entroo")
             http.post("usuarios/login", request)
             .then((response) => {
-                
+                console.log(response)
+                if(response.status != 200 || !response.data.success){
+                    this.msg = "Usuario o Contraseña inválidos";
+                    return;
+                }
+                    
                 console.log(response.data.result);
                 setCookie("token", response.data.result)
                 // this.setToken(response.headers.authorization);

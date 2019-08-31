@@ -2,10 +2,10 @@ body,
 html {
   margin: 0;
   padding: 0;
-  
+
   /* background: #f8f6f6;
   color: #404040; */
-  font-family: 'Lucida Grande', Verdana, sans-serif;
+  font-family: "Lucida Grande", Verdana, sans-serif;
   /* font-size: 13px;
   font-weight: normal;
   line-height: 20px; */
@@ -36,103 +36,106 @@ pre {
   padding: 10px;
   overflow: auto;
 }
-.v-sidebar-menu{
+.v-sidebar-menu {
   border-right: 1px solid #ddd;
 }
-.form-style-2-heading{
-	font-weight: bold;
-	/* font-style: italic; */
-	border-bottom: 2px solid #ddd;
-	margin-bottom: 20px;
-	font-size: 16px;
-	padding-bottom: 3px;
+.form-style-2-heading {
+  font-weight: bold;
+  /* font-style: italic; */
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 20px;
+  font-size: 16px;
+  padding-bottom: 3px;
 }
-.form-style-2 label{
-	display: block;
+.form-style-2 label {
+  display: block;
   margin: 0px 0px 15px 0px;
   font-size: 14px;
 }
-.form-style-2 label > span{
-	width: 100px;
-	/* font-weight: bold; */
-	float: left;
-	padding-top: 8px;
-	padding-right: 5px;
+.form-style-2 label > span {
+  width: 100px;
+  /* font-weight: bold; */
+  float: left;
+  padding-top: 8px;
+  padding-right: 5px;
 }
-.form-style-2 span.required{
-	color:red;
+.form-style-2 span.required {
+  color: red;
 }
-.form-style-2 .tel-number-field{
-	width: 40px;
-	text-align: center;
+.form-style-2 .tel-number-field {
+  width: 40px;
+  text-align: center;
 }
-.form-style-2 input[type='text'], .form-style-2 select{
-	width: 48%;	
+.form-style-2 input[type="text"],
+.form-style-2 input[type="password"],
+.form-style-2 select {
+  width: 48%;
 }
-.form-style-2 input[type='text'], 
-.form-style-2 .tel-number-field, 
-.form-style-2 textarea, 
- .form-style-2 select{
-	box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	border: 1px solid #C2C2C2;
-	box-shadow: 1px 1px 4px #EBEBEB;
-	-moz-box-shadow: 1px 1px 4px #EBEBEB;
-	-webkit-box-shadow: 1px 1px 4px #EBEBEB;
-	border-radius: 3px;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	padding: 7px;
-	outline: none;
+.form-style-2 input[type="text"],
+.form-style-2 input[type="password"],
+.form-style-2 .tel-number-field,
+.form-style-2 textarea,
+.form-style-2 select {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  border: 1px solid #c2c2c2;
+  box-shadow: 1px 1px 4px #ebebeb;
+  -moz-box-shadow: 1px 1px 4px #ebebeb;
+  -webkit-box-shadow: 1px 1px 4px #ebebeb;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  padding: 7px;
+  outline: none;
 }
-.form-style-2 input[type='text']:focus, 
-.form-style-2 .tel-number-field:focus, 
-.form-style-2 textarea:focus,  
-.form-style-2 select:focus{
-	border: 1px solid rgb(83, 156, 185);
+.form-style-2 input[type="text"]:focus,
+.form-style-2 input[type="password"]:focus,
+.form-style-2 .tel-number-field:focus,
+.form-style-2 textarea:focus,
+.form-style-2 select:focus {
+  border: 1px solid rgb(83, 156, 185);
 }
-.form-style-2 textarea{
-	height:100px;
-	width: 55%;
+.form-style-2 textarea {
+  height: 100px;
+  width: 55%;
 }
-.form-style-2 input[type=submit],
-.form-style-2 input[type=button]{
-	border: none;
-	padding: 8px 15px 8px 15px;
-	background: rgb(72, 143, 184);
-	color: #fff;
-	box-shadow: 1px 1px 4px #DADADA;
-	-moz-box-shadow: 1px 1px 4px #DADADA;
-	-webkit-box-shadow: 1px 1px 4px #DADADA;
-	border-radius: 3px;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
+.form-style-2 input[type="submit"],
+.form-style-2 input[type="button"] {
+  border: none;
+  padding: 8px 15px 8px 15px;
+  background: rgb(72, 143, 184);
+  color: #fff;
+  box-shadow: 1px 1px 4px #dadada;
+  -moz-box-shadow: 1px 1px 4px #dadada;
+  -webkit-box-shadow: 1px 1px 4px #dadada;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
 }
-.form-style-2 input[type=submit]:hover,
-.form-style-2 input[type=button]:hover{
-	background: rgb(57, 103, 129);
-	color: #fff;
+.form-style-2 input[type="submit"]:hover,
+.form-style-2 input[type="button"]:hover {
+  background: rgb(57, 103, 129);
+  color: #fff;
 }
 
-.msg{
-    color: red;
-
+.msg {
+  color: red;
 }
-.exito{
-    color: #8dce29;
+.exito {
+  color: #8dce29;
 }
-.certificado{
-  font-family: 'Bookman Old Style';
+.certificado {
+  font-family: "Bookman Old Style";
   width: 650px;
 }
 .certificado .cabecera,
-.certificado .titulo{
+.certificado .titulo {
   text-align: center;
   text-transform: uppercase;
   font-weight: bold;
 }
-.certificado hr{
+.certificado hr {
   margin: 5px;
   overflow: visible; /* For IE */
   padding: 0;
@@ -141,43 +144,51 @@ pre {
   color: #333;
   text-align: center;
 }
-.certificado .titulo{
+.certificado .titulo {
   font-size: 20px;
   margin-top: 100px;
   margin-bottom: 70px;
 }
-.certificado .cabecera h1{
+.certificado .cabecera h1 {
   font-size: 16px;
   margin: 0px;
   font-weight: bold;
 }
-.certificado .cabecera h2{
+.certificado .cabecera h2 {
   font-size: 14px;
   margin: 0px;
   font-weight: bold;
 }
-.certificado .parrafos{
+.certificado .parrafos {
   text-align: justify;
 }
-.certificado .parrafos p{
+.certificado .parrafos p {
   margin-bottom: 20px;
 }
-.firma{
-    margin-top: 60px;
-    text-align: center;
+.firma {
+  margin-top: 60px;
+  text-align: center;
 }
-.certificado img{
-    position: absolute;
-    width: 135px;
-    right: 23%;
+.certificado img {
+  display: none;
+  position: absolute;
+  /* width: 135px;
+  right: 23%; */
 }
 @media print {
-  @page { size: auto;  margin: 0mm; }
+  @page {
+    size: auto;
+    margin: 0mm;
+  }
   body * {
     visibility: hidden;
   }
-  .certificado, .certificado * {
+  .certificado,
+  .certificado * {
     visibility: visible;
+  }
+  .certificado hr {
+    display: none;
   }
   .certificado {
     position: absolute;
@@ -186,29 +197,32 @@ pre {
     margin: 100px 150px;
     width: 1100px;
   }
-  .certificado .titulo{
+  .certificado .titulo {
     font-size: 40px;
     margin-top: 230px;
     margin-bottom: 160px;
   }
-  .certificado .cabecera h1{
+  .certificado .cabecera h1 {
     font-size: 28px;
   }
-  .certificado .cabecera h2{
+  .certificado .cabecera h2 {
     font-size: 22px;
   }
-  .certificado .parrafos p{
+  .certificado .parrafos p {
     font-size: 32px;
     margin-bottom: 70px;
   }
-  .firma{
+  .firma {
     font-size: 32px;
     margin-top: 230px;
   }
-  .certificado img{
-      position: absolute;
-      width: 200px;
-      right: -20px;
+  .certificado img {
+    display: block;
+    position: absolute;
+    width: 1360px;
+    height: 1765px;
+    top: -100px;
+    left: -150px;
+    z-index: -1;
   }
-
 }

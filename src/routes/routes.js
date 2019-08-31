@@ -20,6 +20,8 @@ import Addusr from '../components/usuarios/Agregar.vue';
 import Password from '../components/usuarios/Password.vue';
 
 import Informacion from '../components/informacion/Informacion.vue';
+
+import Logout from '../components/signin/Logout.vue'
 import Main from '../components/main/Main.vue'
 import Principal from '../components/main/Principal.vue'
 
@@ -117,6 +119,11 @@ export const routes =[
                 path:'/usuarios/password', 
                 name: 'chgpwd',
                 component: Password
+            },
+            {
+                path:'/logout', 
+                name: 'logout',
+                component: Logout
             }
         ]
     },

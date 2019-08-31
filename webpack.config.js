@@ -11,7 +11,6 @@ var config = {
     mode: 'development',
     entry: sourcePath + "/main.js",
     output: {
-        path: buildPath,
         publicPath: "/dist/",
         filename: "bundle.js"
     },

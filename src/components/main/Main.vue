@@ -106,6 +106,11 @@ export default {
                                 title: 'Agregar',
                             }
                         ]
+                    },
+                    {
+                        title: 'Cerrar sesión',
+                        icon: 'fa fa-door-closed',
+                        href: '/logout'
                     }
             ],
         selectedTheme: 'white-theme',
