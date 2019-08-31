@@ -17,12 +17,12 @@
         <h2>TEL. {{ informacion.telefono }}</h2>
       </div>
 
-      <h1 class="titulo">ACTA DE MATRIMONIO ECLESIASTICO</h1>
+      <h1 class="titulo">ACTA DE MATRIMONIO ECLESIÁSTICO</h1>
       <div class="parrafos">
         <p>
           El Infrascrito cura Párroco, por la presente HACE CONSTAR QUE: en el Libro de
           Matrimonios N°
-          {{ matrimonio.libro }}, página N° {{ matrimonio.pagina }},
+          {{ matrimonio.libro }}, Página N° {{ matrimonio.pagina }},
           se encuentra la que textualmente dice:
         </p>
         <p>

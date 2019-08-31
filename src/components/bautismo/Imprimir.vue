@@ -20,7 +20,7 @@
             <div class="parrafos">
                 <p>
                     El infrascrito cura párroco, por la presente CERTIFICA QUE: en el Libro de Bautismo N°
-                    {{ bautismo.libro }}, Pagina N° {{ bautismo.pagina }}, asiento N° {{ bautismo.asiento }},
+                    {{ bautismo.libro }}, Página N° {{ bautismo.pagina }}, asiento N° {{ bautismo.asiento }},
                     se encuentra la que textualmente dice:
                 </p>
                 <p>

@@ -50,6 +50,8 @@ const Decenas = num => {
       switch (unidad) {
         case 0:
           return "VEINTE";
+        case 1:
+          return "VEINTIÚN";
         case 2:
           return "VEINTIDÓS";
         case 3:

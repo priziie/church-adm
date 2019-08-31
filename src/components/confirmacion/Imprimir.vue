@@ -7,12 +7,12 @@
         <textarea v-model="para"></textarea>
       </label>
     </div>
-    <input type="button" value="Imprimir" @click="imprimir">
+    <input type="button" value="Imprimir" @click="imprimir" />
     <div v-if="informacion && confirmacion" class="certificado">
-      <img v-bind:src="img" alt>
+      <img v-bind:src="img" alt />
       <div class="cabecera">
         <h1>{{ informacion.nombre }}</h1>
-        <hr>
+        <hr />
         <h2>{{ informacion.direccion }}</h2>
         <h2>TEL. {{ informacion.telefono }}</h2>
       </div>
@@ -22,13 +22,13 @@
         <p>
           El infrascrito cura párroco, por la presente CERTIFICA QUE: en el Libro de
           Confirmaciones N°
-          {{ confirmacion.libro }}, Pagina N° {{ confirmacion.pagina }}, asiento N° {{ confirmacion.asiento }},
+          {{ confirmacion.libro }}, Página N° {{ confirmacion.pagina }}, asiento N° {{ confirmacion.asiento }},
           se encuentra la que textualmente dice:
         </p>
         <p>
           En la {{informacion.nombre}}, {{ informacion.ciudad }}, el día {{ getDay(confirmacion.fecha) }}
           del mes de {{ getMonth(confirmacion.fecha) }} del año {{ getYear(confirmacion.fecha) }},
-          administró el sacramento de la Confirmació el
+          administró el sacramento de la Confirmación el
           {{confirmacion.sacerdote}} a: {{ confirmacion.nombre }}, que nació el día
           {{getDay(confirmacion.nacimiento)}} del mes de {{getMonth(confirmacion.nacimiento)}} del año
           {{getYear(confirmacion.nacimiento)}}, hijo(a) de {{padres}}. Sus padrinos: {{padrinos}}.
@@ -41,7 +41,7 @@
         </p>
         <div class="firma">
           <b>{{informacion.parroco}}</b>
-          <br>Párroco
+          <br />Párroco
         </div>
       </div>
     </div>
