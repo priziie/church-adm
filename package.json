@@ -20,7 +20,7 @@
     "@vue/babel-preset-app": "^3.7.0",
     "axios": "^0.18.1",
     "babel-loader": "^8.0.6",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "bootstrap": "^4.3.1",
     "cors": "^2.8.5",
     "css-loader": "^2.1.1",
