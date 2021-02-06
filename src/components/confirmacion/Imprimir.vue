@@ -20,27 +20,35 @@
       <h1 class="titulo">CERTIFICADO DE CONFIRMACION</h1>
       <div class="parrafos">
         <p>
-          El infrascrito cura párroco, por la presente CERTIFICA QUE: en el Libro de
-          Confirmaciones N°
-          {{ confirmacion.libro }}, Página N° {{ confirmacion.pagina }}, asiento N° {{ confirmacion.asiento }},
-          se encuentra la que textualmente dice:
+          El infrascrito cura párroco, por la presente CERTIFICA QUE: en el
+          Libro de Confirmaciones N°
+          {{ confirmacion.libro }}, Página N° {{ confirmacion.pagina }}, asiento
+          N° {{ confirmacion.asiento }}, se encuentra la que textualmente dice:
         </p>
         <p>
-          En la {{informacion.nombre}}, {{ informacion.ciudad }}, el día {{ getDay(confirmacion.fecha) }}
-          del mes de {{ getMonth(confirmacion.fecha) }} del año {{ getYear(confirmacion.fecha) }},
-          administró el sacramento de la Confirmación el
-          {{confirmacion.sacerdote}} a: {{ confirmacion.nombre }}, que nació el día
-          {{getDay(confirmacion.nacimiento)}} del mes de {{getMonth(confirmacion.nacimiento)}} del año
-          {{getYear(confirmacion.nacimiento)}}, hijo(a) de {{padres}}. Sus padrinos: {{padrinos}}.
+          En la {{ informacion.nombre }}, {{ informacion.ciudad }}, el día
+          {{ getDay(confirmacion.fecha) }} del mes de
+          {{ getMonth(confirmacion.fecha) }} del año
+          {{ getYear(confirmacion.fecha) }}, administró el sacramento de la
+          Confirmación el {{ confirmacion.sacerdote }} a:
+          {{ confirmacion.nombre }}, que nació el día
+          {{ getDay(confirmacion.nacimiento) }} del mes de
+          {{ getMonth(confirmacion.nacimiento) }} del año
+          {{ getYear(confirmacion.nacimiento) }}, hijo(a) de {{ padres }}. Sus
+          padrinos: {{ padrinos }}.
         </p>
         <p>
           Se extiende la presente en la Oficina Parroquial
-          {{ (para) ? "para " + para +", ": "" }} {{
-          (curdate.getDate() == 1) ? "a un día" : "a los "+ getDay(curdate) + " días"
-          }} del mes de {{getMonth(curdate)}} del año {{getYear(curdate)}}.
+          {{ para ? "para " + para + ", " : "" }}
+          {{
+            curdate.getDate() == 1
+              ? "a un día"
+              : "a los " + getDay(curdate) + " días"
+          }}
+          del mes de {{ getMonth(curdate) }} del año {{ getYear(curdate) }}.
         </p>
         <div class="firma">
-          <b>{{informacion.parroco}}</b>
+          <b>{{ informacion.parroco }}</b>
           <br />Párroco
         </div>
       </div>
@@ -62,7 +70,7 @@ export default {
       id: "",
       para: "",
       img: "./img/membrete.png",
-      curdate: new Date()
+      curdate: new Date(),
     };
   },
   computed: {
@@ -90,7 +98,7 @@ export default {
         return conc;
       }
       return "";
-    }
+    },
   },
   created() {
     this.getInfoParroquia();
@@ -123,25 +131,27 @@ export default {
         "septiembre",
         "octubre",
         "noviembre",
-        "diciembre"
+        "diciembre",
       ];
       return meses[d.getMonth()];
     },
     getYear(date) {
       const d = new Date(date);
-      return NumToTex(d.getFullYear()).toLowerCase();
+      return NumToTex(d.getFullYear())
+        .replace("VEINTIÚN", "VEINTIUNO")
+        .toLowerCase();
     },
     getInfoParroquia() {
       http
         .get("informacion", {
           headers: {
-            Authorization: getCookie("token")
-          }
+            Authorization: getCookie("token"),
+          },
         })
-        .then(response => {
+        .then((response) => {
           this.informacion = response.data.result;
         })
-        .catch(error => {
+        .catch((error) => {
           let status = error.response.status;
           console.log("status", status);
           if (status == 440) {
@@ -156,13 +166,13 @@ export default {
       http
         .get("confirmacion/" + this.id, {
           headers: {
-            Authorization: getCookie("token")
-          }
+            Authorization: getCookie("token"),
+          },
         })
-        .then(response => {
+        .then((response) => {
           this.confirmacion = response.data.result;
         })
-        .catch(error => {
+        .catch((error) => {
           let status = error.response.status;
           console.log(status);
           if (status == 440) {
@@ -172,8 +182,8 @@ export default {
           //redireccionar a error
           this.$router.replace("/errorForm");
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

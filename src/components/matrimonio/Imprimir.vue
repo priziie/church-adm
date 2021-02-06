@@ -20,30 +20,36 @@
       <h1 class="titulo">ACTA DE MATRIMONIO ECLESIÁSTICO</h1>
       <div class="parrafos">
         <p>
-          El Infrascrito cura Párroco, por la presente HACE CONSTAR QUE: en el Libro de
-          Matrimonios N°
-          {{ matrimonio.libro }}, Página N° {{ matrimonio.pagina }},
-          se encuentra la que textualmente dice:
+          El Infrascrito cura Párroco, por la presente HACE CONSTAR QUE: en el
+          Libro de Matrimonios N°
+          {{ matrimonio.libro }}, Página N° {{ matrimonio.pagina }}, se
+          encuentra la que textualmente dice:
         </p>
         <p>
-          "En la {{informacion.nombre}} de {{ informacion.ciudad }}, el día
+          "En la {{ informacion.nombre }} de {{ informacion.ciudad }}, el día
           {{ getDay(matrimonio.fecha) }}
-          del mes de {{ getMonth(matrimonio.fecha) }} del año {{ getYear(matrimonio.fecha) }}.
-          Previos los trámites de Derecho Civil y canónico, el señor
-          {{matrimonio.esposo.nombre}} de {{matrimonio.esposo.edad}} años, hijo de
-          {{padresEsposo}}, originario de {{matrimonio.esposo.origen}}, contrajo Matrimonio
-          Eclesiástico con {{matrimonio.esposa.nombre}} de {{matrimonio.esposa.edad}} años,
-          hija de {{padresEsposa}}, originaria de {{matrimonio.esposa.origen}}.
-          Fueron testigos: {{matrimonio.esposo.testigo}} y {{matrimonio.esposa.testigo}}."
+          del mes de {{ getMonth(matrimonio.fecha) }} del año
+          {{ getYear(matrimonio.fecha) }}. Previos los trámites de Derecho Civil
+          y canónico, el señor {{ matrimonio.esposo.nombre }} de
+          {{ matrimonio.esposo.edad }} años, hijo de {{ padresEsposo }},
+          originario de {{ matrimonio.esposo.origen }}, contrajo Matrimonio
+          Eclesiástico con {{ matrimonio.esposa.nombre }} de
+          {{ matrimonio.esposa.edad }} años, hija de {{ padresEsposa }},
+          originaria de {{ matrimonio.esposa.origen }}. Fueron testigos:
+          {{ matrimonio.esposo.testigo }} y {{ matrimonio.esposa.testigo }}."
         </p>
         <p>
           Se extiende la presente en la Oficina Parroquial
-          {{ (para) ? "para " + para +", ": "" }} {{
-          (curdate.getDate() == 1) ? "a un día" : "a los "+ getDay(curdate) + " días"
-          }} del mes de {{getMonth(curdate)}} del año {{getYear(curdate)}}.
+          {{ para ? "para " + para + ", " : "" }}
+          {{
+            curdate.getDate() == 1
+              ? "a un día"
+              : "a los " + getDay(curdate) + " días"
+          }}
+          del mes de {{ getMonth(curdate) }} del año {{ getYear(curdate) }}.
         </p>
         <div class="firma">
-          <b>{{informacion.parroco}}</b>
+          <b>{{ informacion.parroco }}</b>
           <br />Párroco
         </div>
       </div>
@@ -65,7 +71,7 @@ export default {
       id: "",
       para: "",
       img: "./img/membrete.png",
-      curdate: new Date()
+      curdate: new Date(),
     };
   },
   computed: {
@@ -96,7 +102,7 @@ export default {
           : this.matrimonio.esposa.madre;
       }
       return "";
-    }
+    },
   },
   created() {
     this.getInfoParroquia();
@@ -129,25 +135,27 @@ export default {
         "septiembre",
         "octubre",
         "noviembre",
-        "diciembre"
+        "diciembre",
       ];
       return meses[d.getMonth()];
     },
     getYear(date) {
       const d = new Date(date);
-      return NumToTex(d.getFullYear()).toLowerCase();
+      return NumToTex(d.getFullYear())
+        .replace("VEINTIÚN", "VEINTIUNO")
+        .toLowerCase();
     },
     getInfoParroquia() {
       http
         .get("informacion", {
           headers: {
-            Authorization: getCookie("token")
-          }
+            Authorization: getCookie("token"),
+          },
         })
-        .then(response => {
+        .then((response) => {
           this.informacion = response.data.result;
         })
-        .catch(error => {
+        .catch((error) => {
           let status = error.response.status;
           console.log(status);
           if (status == 440) {
@@ -162,13 +170,13 @@ export default {
       http
         .get("matrimonio/" + this.id, {
           headers: {
-            Authorization: getCookie("token")
-          }
+            Authorization: getCookie("token"),
+          },
         })
-        .then(response => {
+        .then((response) => {
           this.matrimonio = response.data.result;
         })
-        .catch(error => {
+        .catch((error) => {
           let status = error.response.status;
           console.log(status);
           if (status == 440) {
@@ -178,8 +186,8 @@ export default {
           //redireccionar a error
           this.$router.replace("/errorForm");
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
