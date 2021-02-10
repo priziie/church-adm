@@ -69,7 +69,16 @@ import { http } from "../../axios/common";
 import { getCookie } from "../../utils/cookie";
 import EventBus from "../../eventBus";
 import { NumToTex } from "../../utils/NumToTex.js";
-
+function formatAMPM(date) {
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? "pm" : "am";
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  var strTime = hours + ":" + minutes + " " + ampm;
+  return strTime;
+}
 export default {
   data() {
     return {
@@ -88,11 +97,10 @@ export default {
               year: "numeric",
               month: "long",
               day: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: true,
             };
-            return date.toLocaleDateString("es-SV", options);
+            return (
+              date.toLocaleDateString("es-SV", options) + " " + formatAMPM(date)
+            );
           },
         },
         { label: "Motivo", field: "motivo" },
